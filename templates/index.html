@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <section class="hero py-5 text-center text-white">
+    <div class="container py-5">
+      <h1 class="display-5 fw-bold">Welcome to RK HOTEL</h1>
+      <p class="lead">Comfortable stays, great service. Book your perfect room in seconds.</p>
+      <div class="mt-4">
+        <a href="#rooms-list" class="btn btn-dark btn-lg me-2">View Rooms</a>
+        <a href="#contact" class="btn btn-outline-light btn-lg">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="rooms-list" class="py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="h4">Available Rooms</h2>
+      <div class="text-muted small">We update availability in real-time</div>
+    </div>
+
+    <div class="row g-4">
+      {% for room in rooms %}
+        <div class="col-sm-6 col-lg-4">
+    <div class="card h-100 shadow-sm room-card">
+      <img src="/static/images/room-{{ room['number'] }}.webp" alt="Room {{ room['number'] }}" class="card-img-top room-image">
+        <div class="card-body d-flex flex-column pt-3">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <div>
+                  <h5 class="card-title mb-0">Room {{ room['number'] }}</h5>
+                  <small class="text-muted">{{ room['type'] }}</small>
+                </div>
+                <div class="text-end">
+                  <div class="h5 mb-0 text-primary">${{ room['price'] }}</div>
+                  <small class="text-muted">/ night</small>
+                </div>
+              </div>
+              <p class="card-text text-muted mb-4">A comfortable {{ room['type'] | lower }} room with modern amenities.</p>
+
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <div>
+                  {% if room['available'] %}
+                    <span class="badge bg-success">Available</span>
+                  {% else %}
+                    <span class="badge bg-secondary">Booked</span>
+                  {% endif %}
+                </div>
+                {% if room['available'] %}
+                  <button class="btn btn-primary btn-sm book-btn" data-room-id="{{ room['id'] }}" data-room-number="{{ room['number'] }}">Book Now</button>
+                {% else %}
+                  <button class="btn btn-outline-secondary btn-sm" disabled>Unavailable</button>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+{% endblock %}

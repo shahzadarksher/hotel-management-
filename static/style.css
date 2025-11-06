@@ -1,0 +1,55 @@
+:root{
+	--brand-1: #0d6efd;
+	--brand-2: #6610f2;
+	--muted: #6c757d;
+	--radius: .6rem;
+}
+body{
+	font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+	background: linear-gradient(180deg,#f8fafc 0%, #ffffff 100%);
+	color: #212529;
+}
+.hero{ box-shadow: 0 6px 30px rgba(20,20,50,0.06); }
+/* hero background: use a room image with overlay for readability */
+.hero{
+	position:relative;
+	background-image: url('/static/images/room-102.webp');
+	background-size: cover;
+	background-position: center center;
+	color: #fff;
+	border-radius: .5rem;
+}
+.hero::before{
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.45) 100%);
+	border-radius: .5rem;
+	z-index: 0;
+}
+.hero > .container{ position: relative; z-index: 1; }
+.room-card{ border-radius: var(--radius); transition: transform .18s ease, box-shadow .18s ease; }
+.room-card:hover{ transform: translateY(-6px); box-shadow: 0 12px 30px rgba(20,20,50,0.08); }
+.card .card-body{ min-height: 220px; }
+.room-image{
+	width:100%;
+	height:160px;
+	object-fit:cover;
+	border-top-left-radius: var(--radius);
+	border-top-right-radius: var(--radius);
+	display:block;
+}
+
+/* site logo sizing */
+.site-logo{ height:36px; width:36px; display:inline-block; }
+@media (max-width:576px){ .site-logo{ height:28px; width:28px; } }
+.footer{ color: var(--muted); font-size: .95rem; }
+.badge{ font-weight:600; }
+
+/* small screens tweaks */
+@media (max-width:576px){
+	.hero .display-5{ font-size:1.6rem; }
+}
+
+/* toast spacing */
+.position-fixed.top-0.end-0.p-3{ padding-top: 1.5rem; }

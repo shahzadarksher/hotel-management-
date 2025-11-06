@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="h4">Manage Bookings</h2>
+    <div class="d-flex align-items-center">
+      <form class="me-3" method="get" action="{{ url_for('admin_bookings') }}">
+        <div class="input-group input-group-sm">
+          <input name="q" value="{{ q or '' }}" class="form-control" placeholder="Search bookings">
+          <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+      </form>
+      <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('admin_rooms') }}">Rooms</a>
+      <a class="btn btn-sm btn-outline-secondary ms-2" href="{{ url_for('admin_logout') }}">Logout</a>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr><th>#</th><th>Customer</th><th>Room</th><th>Check-in</th><th>Check-out</th><th>Status</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for b in bookings %}
+          <tr>
+            <td>{{ b['id'] }}</td>
+            <td>{{ b['customer_name'] }}</td>
+            <td>Room {{ b['room_number'] }}</td>
+            <td>{{ b['checkin'] }}</td>
+            <td>{{ b['checkout'] }}</td>
+            <td><span class="badge {% if b['status']=='booked' %}bg-primary{% elif b['status']=='checked-in' %}bg-success{% elif b['status']=='checked-out' %}bg-secondary{% else %}bg-danger{% endif %}">{{ b['status'] }}</span></td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-outline-primary me-2" href="{{ url_for('admin_booking_detail', booking_id=b['id']) }}">Details</a>
+              <form method="post" action="{{ url_for('admin_delete_booking', booking_id=b['id']) }}" style="display:inline" onsubmit="return confirm('Cancel this booking?');">
+                <button class="btn btn-sm btn-outline-danger">Cancel</button>
+              </form>
+            </td>
+          </tr>
+        {% else %}
+          <tr><td colspan="7" class="text-center">No bookings found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- pagination -->
+  <nav aria-label="bookings pagination">
+    <ul class="pagination pagination-sm">
+      {% for p in range(1, total_pages+1) %}
+        <li class="page-item {% if p==page %}active{% endif %}"><a class="page-link" href="?page={{ p }}{% if q %}&q={{ q }}{% endif %}">{{ p }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <h2 class="h4 mb-4">Recent Bookings</h2>
+  <div class="list-group">
+    {% for b in bookings %}
+      <div class="list-group-item d-flex justify-content-between align-items-start">
+        <div>
+          <strong>{{ b['customer_name'] }}</strong>
+          <div class="small text-muted">Room {{ b['room_number'] }} — Booking #{{ b['id'] }}</div>
+        </div>
+        <div class="text-end">
+          <div class="small">{{ b['checkin'] }} → {{ b['checkout'] }}</div>
+        </div>
+      </div>
+    {% else %}
+      <div class="list-group-item">No bookings yet.</div>
+    {% endfor %}
+  </div>
+{% endblock %}
