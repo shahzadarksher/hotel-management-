@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Home - Hotel Management{% endblock %}
+{% block content %}
+<div class="p-4 bg-light rounded-3">
+  <h1>Welcome to Hotel Management</h1>
+  <p>Use the booking page to create a reservation or visit the admin page to manage rooms.</p>
+  <a class="btn btn-primary" href="{{ url_for('main.booking') }}">Make a Booking</a>
+</div>
+{% endblock %}

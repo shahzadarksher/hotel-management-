@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Rooms - Hotel Management{% endblock %}
+{% block content %}
+<h2>Rooms</h2>
+<div class="row gy-3">
+  {% if rooms %}
+    {% for r in rooms %}
+      <div class="col-md-4">
+        <div class="card p-3">
+          <h5 class="mb-1">Room {{ r.number }}</h5>
+          <div class="muted">{{ r.room_type }}</div>
+          <p class="mt-2">Price: ${{ r.price }}</p>
+          <div>
+            {% if r.is_available %}
+              <span class="badge bg-success">Available</span>
+            {% else %}
+              <span class="badge bg-secondary">Booked</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="col-12">No rooms available yet.</div>
+  {% endif %}
+</div>
+{% endblock %}

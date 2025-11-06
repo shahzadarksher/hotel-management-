@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Booking - Hotel Management{% endblock %}
+{% block content %}
+<div class="card p-4">
+  <h2>Make a Booking</h2>
+  <form method="post" class="row g-3 mt-2">
+    <div class="col-md-6">
+      <label class="form-label">Full name</label>
+      <input class="form-control" name="name" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Email</label>
+      <input class="form-control" type="email" name="email" required>
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Check-in</label>
+      <input class="form-control" type="date" name="check_in" required>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Check-out</label>
+      <input class="form-control" type="date" name="check_out" required>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Room</label>
+      <select name="room_id" class="form-select">
+        <option value="">Any available</option>
+        {% for r in rooms %}
+          <option value="{{ r.id }}">{{ r.number }} — {{ r.room_type }} — ${{ r.price }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-12 mt-3">
+      <button class="btn btn-primary">Book now</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
